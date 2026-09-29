@@ -861,20 +861,43 @@ body::before {
   margin-top: 4px;
 }
 
+.award-item-active {
+  border-color: var(--text) !important;
+  background: var(--surface-2) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.awards-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
 .awards-img {
   width: 100%;
   height: 100%;
   min-height: 380px;
   object-fit: cover;
   border-radius: 16px;
-  border: 1px solid var(--line);
   display: block;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 @media (max-width: 768px) {
   .awards-layout {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .awards-img-wrapper {
+    min-height: unset;
+    height: 240px;
   }
 
   .awards-img {

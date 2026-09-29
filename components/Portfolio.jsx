@@ -116,6 +116,7 @@ const ORGANIZATIONS = [
     date: "Jan 2025 – Feb 2025",
     desc: "Spearheaded a committee of 70 members, providing strategic direction and oversight. Coordinated with faculty to secure permits, supervised financial planning, and directed Opening and Closing ceremonies.",
     icon: Users,
+    image: "/images/organizations/posf.webp",
   },
   {
     role: "Vice Chief Executive",
@@ -124,6 +125,7 @@ const ORGANIZATIONS = [
     date: "Aug 2025 – Oct 2025",
     desc: "Oversaw strategic planning and operations for the largest annual sports and arts olympiad at FMIPA IPB. Monitored divisional progress, resolved operational bottlenecks, and supervised event logistics.",
     icon: Trophy,
+    image: "/images/organizations/spirit.jpg",
   },
   {
     role: "Staff Member",
@@ -132,6 +134,7 @@ const ORGANIZATIONS = [
     date: "Jan 2025 – Dec 2025",
     desc: "Facilitated athlete development, coordinated contingents for university-level championships, organized faculty sports leagues, and managed athletic facilities.",
     icon: Award,
+    image: "/images/organizations/bem_fmipa.jpg",
   },
 ];
 
@@ -149,8 +152,7 @@ const EXPERIENCE = [
       { name: "Python Fundamentals", link: "#" },
     ],
     images: [
-      "/images/experience/dicoding/1.jpg",
-      "/images/experience/dicoding/2.jpg",
+      "/images/experience/dicoding.jpg",
     ],
   },
   {
@@ -164,8 +166,7 @@ const EXPERIENCE = [
       { name: "Microsoft Hackathon Certificate", link: "#" },
     ],
     images: [
-      "/images/experience/microsoft/1.jpg",
-      "/images/experience/microsoft/2.jpg",
+      "/images/projects/matverify.png",
     ],
   },
   {
@@ -178,8 +179,7 @@ const EXPERIENCE = [
       { name: "Top 100 JuaraVibeCoding Certificate", link: "#" },
     ],
     images: [
-      "/images/experience/google/1.jpg",
-      "/images/experience/google/2.jpg",
+      "/images/projects/agriflow.png",
     ],
   },
 ];
@@ -311,6 +311,7 @@ export default function Portfolio() {
   const [formStatus, setFormStatus] = useState("idle");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeOrgIndex, setActiveOrgIndex] = useState(0);
   const activeProject = PROJECTS[activeIndex];
 
   useEffect(() => {
@@ -800,12 +801,25 @@ export default function Portfolio() {
 
         <Reveal delay={100}>
           <div className="awards-layout">
-            <img src="/images/awards/awards.png" alt="Organization Experience" className="awards-img" />
+            <div className="awards-img-wrapper">
+              <img 
+                src={ORGANIZATIONS[activeOrgIndex]?.image || "/images/organizations/posf.webp"} 
+                alt={ORGANIZATIONS[activeOrgIndex]?.name || "Organization Experience"} 
+                className="awards-img" 
+              />
+            </div>
             <div className="awards-column">
               {ORGANIZATIONS.map((org, index) => {
                 const Icon = org.icon;
+                const isActive = activeOrgIndex === index;
                 return (
-                  <div key={index} className="award-item">
+                  <div 
+                    key={index} 
+                    className={`award-item${isActive ? " award-item-active" : ""}`}
+                    onMouseEnter={() => setActiveOrgIndex(index)}
+                    onClick={() => setActiveOrgIndex(index)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <div className="award-icon"><Icon size={20} /></div>
                     <div className="award-info">
                       <div className="award-header-row">
