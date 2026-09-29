@@ -155,40 +155,25 @@ const EXPERIENCE = [
       "/images/experience/dicoding.jpg",
     ],
   },
-  {
-    title: "Microsoft Hackathon 2026",
-    subtitle: "AI Material Verification Intelligence (MatVerify)",
-    org: "Microsoft",
-    date: "2026",
-    imageLeft: true,
-    desc: "Engineered MatVerify, an AI and computer vision solution designed for automated material verification and structural assessment under intensive hackathon sprint conditions. Implemented deep learning neural networks for accurate defect detection and classification.",
-    certificates: [
-      { name: "Microsoft Hackathon Certificate", link: "#" },
-    ],
-    images: [
-      "/images/projects/matverify.png",
-    ],
-  },
-  {
-    title: "Google JuaraVibeCoding 2026",
-    subtitle: "Top 100 Nationwide - Agriflow AI",
-    org: "Google",
-    date: "2026",
-    desc: "Competed in Google's JuaraVibeCoding competition and achieved Top 100 ranking with Agriflow (AI Food Supply Chain Intelligence). Developed predictive models and machine learning pipelines to optimize food logistics and forecast supply chain dynamics.",
-    certificates: [
-      { name: "Top 100 JuaraVibeCoding Certificate", link: "#" },
-    ],
-    images: [
-      "/images/projects/agriflow.png",
-    ],
-  },
 ];
 
-// Same click-to-flick mechanic as the About-me trait cards: the front image
-// flies off and the next one in the pile takes its place.
 function ExperienceImageStack({ images, title }) {
   const [index, setIndex] = useState(0);
-  const count = images.length;
+  const count = images ? images.length : 0;
+  if (!images || count === 0) return null;
+
+  if (count === 1) {
+    return (
+      <div className="experience-single-image-wrapper">
+        <img
+          src={images[0]}
+          alt={title}
+          className="experience-single-image"
+          draggable={false}
+        />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -197,7 +182,7 @@ function ExperienceImageStack({ images, title }) {
     >
       {images.map((src, i) => {
         const offset = (i - index + count) % count;
-        const isExiting = offset === count - 1;
+        const isExiting = count > 1 && offset === count - 1;
         // Only the front 3 images and the one that just got flicked away are rendered.
         if (offset > 2 && !isExiting) return null;
 
@@ -708,7 +693,7 @@ export default function Portfolio() {
                     Experienced in leading large-scale student initiatives as Chief Executive of POSF 2025 and Vice Chief Executive of SPIRIT 2025 at FMIPA IPB. I am passionate about modeling physical processes, uncovering insights from data, and building impactful AI solutions. Open to collaboration and new opportunities in Data Science and AI.
                   </p>
                   <p>
-                    Want to know more about my experience? <a href="/resume/Ahmad_Hariri-Curriculum_Vitae.pdf" className="about-resume-link" target="_blank" rel="noopener noreferrer">Download my resume</a>.
+                    Want to know more about my experience? <a href="/resume/Ahmad_Hariri_Resume.pdf" className="about-resume-link" target="_blank" rel="noopener noreferrer">Download my resume</a>.
                   </p>
                 </div>
               </div>
@@ -839,9 +824,9 @@ export default function Portfolio() {
       <section id="trainings" className="section">
         <Reveal>
           <div className="section-label">Growth & Experience</div>
-          <TypewriterTitle text="Trainings & Hackathons." />
+          <TypewriterTitle text="Trainings." />
           <div className="section-desc">
-            A collection of trainings, workshops, and hackathons that shaped my technical and collaborative skills.
+            A specialized training track and professional certifications in Machine Learning, Deep Learning, and MLOps Engineering.
           </div>
         </Reveal>
 
@@ -898,7 +883,7 @@ export default function Portfolio() {
               </p>
             </Reveal>
             <Reveal delay={400}>
-              <a href="/resume/Ahmad_Hariri-Curriculum_Vitae.pdf" className="contact-resume-btn" target="_blank" rel="noopener noreferrer">DOWNLOAD RESUME</a>
+              <a href="/resume/Ahmad_Hariri_Resume.pdf" className="contact-resume-btn" target="_blank" rel="noopener noreferrer">DOWNLOAD RESUME</a>
             </Reveal>
           </div>
 
